@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Name | Official Website</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ff3e3e;
+            --bg-dark: #0a0a0a;
+            --bg-light: #121212;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent-font: 'Syne', sans-serif;
+            --body-font: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--body-font);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: var(--accent-font);
+            text-transform: uppercase;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            background: transparent;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 8%;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li { margin-left: 2.5rem; }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1920&auto=format&fit=crop') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-socials {
+            margin-bottom: 2.5rem;
+            font-size: 1.5rem;
+        }
+
+        .hero-socials a {
+            color: white;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+
+        .hero-socials a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            display: inline-block;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            font-family: var(--accent-font);
+            border-radius: 0;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--bg-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Section Styling */
+        section { padding: 8rem 8% 5rem; }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        /* Music Cards */
+        .discography {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .album-card {
+            background: var(--bg-light);
+            border-radius: 0;
+            overflow: hidden;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .album-card:hover { transform: translateY(-10px); }
+
+        .album-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: 0.5s;
+        }
+
+        .album-card:hover img { filter: grayscale(0%); }
+
+        .album-info { padding: 1.5rem; text-align: left; }
+        .album-info h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .album-info p { color: var(--text-dim); font-size: 0.9rem; }
+
+        .platform-icons {
+            margin-top: 1rem;
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+        }
+
+        .platform-icons a {
+            color: var(--text-dim);
+            margin-right: 15px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .platform-icons a:hover { color: var(--primary-color); }
+
+        /* Photo Gallery Section */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-item {
+            overflow: hidden;
+            position: relative;
+            background: #111;
+            aspect-ratio: 4/5;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(50%);
+            transition: all 0.6s ease;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 62, 62, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .view-btn {
+            padding: 10px 20px;
+            border: 2px solid white;
+            color: white;
+            font-family: var(--accent-font);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .photo-item:hover .view-btn {
+            transform: translateY(0);
+        }
+
+        /* MODAL / COLLECTION CARD STYLES */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            padding: 50px 20px;
+        }
+
+        .modal-content {
+            background: var(--bg-light);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover { color: var(--primary-color); }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .collection-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid #222;
+        }
+
+        /* Tour Table */
+        .tour-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tour-table tr {
+            border-bottom: 1px solid #222;
+            transition: 0.3s;
+        }
+
+        .tour-table tr:hover { background: #151515; }
+
+        .tour-table td { padding: 2rem 1rem; }
+
+        .date-box {
+            font-family: var(--accent-font);
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .city { font-weight: 600; font-size: 1.1rem; }
+        .venue { color: var(--text-dim); font-size: 0.9rem; }
+
+        /* button admin */
+        .admin-bar {
+            text-align: center;
+            position: sticky;
+            width: 40px;
+            border: 3px solid red;
+            background-color: #ff3e3e;    
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 8%;
+            background: #000;
+            text-align: center;
+            border-top: 1px solid #111;
+        }
+
+        .footer-logo {
+            font-family: var(--accent-font);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .social-grid {
+            margin-bottom: 3rem;
+        }
+
+        .social-grid a {
+            font-size: 1.8rem;
+            color: white;
+            margin: 0 20px;
+            transition: 0.3s;
+        }
+
+        .social-grid a:hover { color: var(--primary-color); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            h2 { font-size: 2rem; }
+            .tour-table td { padding: 1rem 0.5rem; font-size: 0.8rem; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .modal-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo">ARTIST<span>NAME</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#music">MUSIC</a></li>
+            <li><a href="#gallery">GALLERY</a></li>
+            <li><a href="#tour">TOUR</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+        <div class="admin-bar">
+            <a href="admin.html"><i class="fas fa-sliders-h"></i></a>
+        </div>
+    </nav>
+   
+
+    <header class="hero" id="home">
+        <div class="hero-socials">
+            <a href="#"><i class="fab fa-spotify"></i></a>
+            <a href="#"><i class="fab fa-apple"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <h1>THE NOISE<br>PROJECT</h1>
+        <p style="margin-bottom: 2rem; letter-spacing: 5px; font-weight: 300;">WORLD TOUR 2026 BEGINS NOW</p>
+        <a href="#music" class="btn">DISCOVER SOUNDS</a>
+    </header>
+
+    <section id="music">
+        <h2>LATEST RELEASES</h2>
+        <div class="discography">
+            <div class="album-card">
+                <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=600&auto=format&fit=crop" alt="Album 1">
+                <div class="album-info">
+                    <h3>Midnight Echoes</h3>
+                    <p>Single • 2024</p>
+                    <div class="platform-icons">
+                        <a href="#"><i class="fab fa-spotify"></i></a>
+                        <a href="#"><i class="fab fa-apple"></i></a>
+                        <a href="#"><i class="fab fa-amazon"></i></a>
+                        <a href="#"><i class="fa-solid fa-compact-disc"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="album-card">
+                <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=600&auto=format&fit=crop" alt="Album 2">
+                <div class="album-info">
+                    <h3>Shadow Puppets</h3>
+                    <p>Studio Album • 2023</p>
+                    <div class="platform-icons">
+                        <a href="#"><i class="fab fa-spotify"></i></a>
+                        <a href="#"><i class="fab fa-apple"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="album-card">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop" alt="Album 3">
+                <div class="album-info">
+                    <h3>Electric Sky</h3>
+                    <p>EP • 2022</p>
+                    <div class="platform-icons">
+                        <a href="#"><i class="fab fa-spotify"></i></a>
+                        <a href="#"><i class="fab fa-soundcloud"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>PHOTO GALLERY</h2>
+        <div class="photo-grid">
+            <div class="photo-item" onclick="openCollection('Tour 2025')">
+                <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=800&auto=format&fit=crop" alt="Live Performance">
+                <div class="photo-overlay">
+                    <div class="view-btn">VIEW COLLECTION</div>
+                </div>
+            </div>
+            <div class="photo-item" onclick="openCollection('Stage Moments')">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop" alt="Concert Stage">
+                <div class="photo-overlay">
+                    <div class="view-btn">VIEW COLLECTION</div>
+                </div>
+            </div>
+            <div class="photo-item" onclick="openCollection('Artist Portrait')">
+                <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=800&auto=format&fit=crop" alt="Artist Portrait">
+                <div class="photo-overlay">
+                    <div class="view-btn">VIEW COLLECTION</div>
+                </div>
+            </div>
+            <div class="photo-item" onclick="openCollection('Behind the Scenes')">
+                <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=600&auto=format&fit=crop" alt="Studio Session">
+                <div class="photo-overlay">
+                    <div class="view-btn">VIEW COLLECTION</div>
+                </div>
+            </div>
+            <div class="photo-item" onclick="openCollection('World Tour')">
+                <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=800&auto=format&fit=crop" alt="Crowd Night">
+                <div class="photo-overlay">
+                    <div class="view-btn">VIEW COLLECTION</div>
+                </div>
+            </div>
+            <div class="photo-item" onclick="openCollection('Backstage')">
+                <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=800&auto=format&fit=crop" alt="Backstage">
+                <div class="photo-overlay">
+                    <div class="view-btn">VIEW COLLECTION</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCollection()">&times;</span>
+            <h2 id="modalTitle" style="text-align: left; margin-bottom: 1rem; border-left: 5px solid var(--primary-color); padding-left: 15px;">COLLECTION</h2>
+            <p style="color: var(--text-dim); margin-bottom: 2rem;">Kumpulan foto eksklusif dari galeri kami.</p>
+            <div class="collection-grid">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400" alt="img">
+<img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=400" alt="img">
+<img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400" alt="img">
+<img src="https://images.unsplash.com/photo-1619983081563-430f63602796?auto=format&fit=crop&q=80&w=400" alt="img">
+<img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=800&auto=format&fit=crop" alt="img">
+<img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=400" alt="img">
+            </div>
+            <div style="margin-top: 30px; text-align: right;">
+                <button class="btn" style="padding: 0.8rem 1.5rem;" onclick="closeCollection()">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="tour" style="background-color: var(--bg-light);">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2>LIVE DATES</h2>
+            <table class="tour-table">
+                <tr>
+                    <td class="date-box">MAY 12</td>
+                    <td>
+                        <div class="city">JAKARTA, ID</div>
+                        <div class="venue">Istora Senayan</div>
+                    </td>
+                    <td style="text-align: right;"><a href="#" class="btn" style="padding: 0.6rem 1.5rem; font-size: 0.7rem;">GET TICKETS</a></td>
+                </tr>
+                <tr>
+                    <td class="date-box">JUN 05</td>
+                    <td>
+                        <div class="city">LONDON, UK</div>
+                        <div class="venue">O2 Academy</div>
+                    </td>
+                    <td style="text-align: right;"><a href="#" class="btn" style="padding: 0.6rem 1.5rem; font-size: 0.7rem;">GET TICKETS</a></td>
+                </tr>
+                <tr>
+                    <td class="date-box">JUL 20</td>
+                    <td>
+                        <div class="city">TOKYO, JP</div>
+                        <div class="venue">Budokan</div>
+                    </td>
+                    <td style="text-align: right;"><span style="color: #444; font-weight: bold; font-family: var(--accent-font);">SOLD OUT</span></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <span class="footer-logo">ARTIST NAME</span>
+        <div class="social-grid">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.8rem; letter-spacing: 2px;">
+            &copy; 2026 THE NOISE PROJECT. ALL RIGHTS RESERVED.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // MODAL FUNCTIONS
+        function openCollection(title) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('photoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Matikan scroll body
+        }
+
+        function closeCollection() {
+            document.getElementById('photoModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Aktifkan kembali scroll body
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            let modal = document.getElementById('photoModal');
+            if (event.target == modal) {
+                closeCollection();
+            }
+        }
+    </script>
+</body>
+</html>
